@@ -1,0 +1,22 @@
+# Seguridad de la cadena de suministro (ver docs/plan.md, Fase 9)
+
+# Guardar dependencias con versión exacta (sin ^ ni ~)
+savePrefix: ''
+
+# No instalar versiones publicadas hace menos de 7 días (en minutos)
+minimumReleaseAge: 10080
+minimumReleaseAgeStrict: true
+
+# Scripts de instalación bloqueados: la instalación falla si un paquete
+# trae scripts sin revisar. Se autorizan de forma nominal en allowBuilds.
+strictDepBuilds: true
+dangerouslyAllowAllBuilds: false
+allowBuilds: {}
+
+# Parches de seguridad en dependencias transitivas (solo herramientas de desarrollo).
+# Revisar y quitar cuando las dependencias directas traigan versiones corregidas.
+overrides:
+  # GHSA-mrhx-c7xc-m3w5 (vía eslint-plugin-react-hooks, que acepta zod ^4.0.0)
+  zod: 4.6.7
+  # GHSA-g3hv-75wg-m249 (vía eslint > @eslint/config-array, que pide ^10; se fuerza la 11)
+  minimatch: 11.0.2
